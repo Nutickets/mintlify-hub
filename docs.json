@@ -29,7 +29,8 @@
               "topics/self-service-registration",
               "topics/plans-and-packages",
               "topics/gateway-settings",
-              "topics/integration-settings"
+              "topics/integration-settings",
+              "topics/sso"
             ]
           }
         ]
