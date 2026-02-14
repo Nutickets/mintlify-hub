@@ -54,6 +54,11 @@
     "global": {
       "anchors": [
         {
+          "anchor": "Releases",
+          "icon": "rocket",
+          "href": "https://docs.nuwebgroup.com/releases"
+        },
+        {
           "anchor": "Blog",
           "icon": "newspaper",
           "href": "https://www.nuwebgroup.com/blog"
