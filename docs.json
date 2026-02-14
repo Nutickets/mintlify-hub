@@ -33,6 +33,22 @@
             ]
           }
         ]
+      },
+      {
+        "tab": "Partner API Reference",
+        "openapi": {
+          "source": "/partner-api-reference/openapi.json",
+          "directory": "/partner-api-reference"
+        },
+        "groups": [
+          {
+            "group": "About",
+            "pages": [
+              "partner-api-reference/introduction",
+              "partner-api-reference/changelog"
+            ]
+          }
+        ]
       }
     ],
     "global": {
