@@ -2465,6 +2465,12 @@
               "null"
             ]
           },
+          "companyReplyToEmail": {
+            "type": [
+              "string",
+              "null"
+            ]
+          },
           "adminGoogleTagManagerCode": {
             "type": [
               "string",

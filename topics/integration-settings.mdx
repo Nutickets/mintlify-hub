@@ -87,6 +87,19 @@ Social login credentials are configured at the reseller level to enable customer
 
 When social login credentials are configured on the reseller, companies under that reseller can offer social login to their customers during checkout and account registration.
 
+### Email Settings
+
+<Tip>New in Release 45</Tip>
+
+Reply-to email addresses can be configured at both the reseller and company level. When set, all outgoing platform emails (order confirmations, refund notifications, etc.) include this address as the **Reply-To** header, so customer replies are directed to the correct inbox.
+
+| Level | Setting | Effect |
+|-------|---------|--------|
+| **Reseller** | Reply-to email | Sets a default reply-to address for all companies under the reseller |
+| **Company** | Reply-to email | Overrides the reseller-level reply-to for this specific company |
+
+These settings are optional. When no reply-to email is configured, customer replies go to the platform's default sending address.
+
 ## How Integrations Flow from Reseller to Company
 
 Integration enablement follows a three-step chain:
