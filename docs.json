@@ -30,7 +30,8 @@
               "topics/plans-and-packages",
               "topics/gateway-settings",
               "topics/integration-settings",
-              "topics/sso"
+              "topics/sso",
+              "topics/users-and-roles"
             ]
           }
         ]

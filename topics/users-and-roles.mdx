@@ -1,0 +1,167 @@
+---
+title: "Users & Roles"
+description: "Manage hub user accounts, define roles with granular permissions, and control access to resellers and companies."
+---
+
+## Overview
+
+Users & roles control who can access the Partner Hub and what they can do within it. Every person who logs in to the hub is a **hub user** — an account linked to one or more resellers, with permissions defined by their assigned roles.
+
+The hub has its own role system, separate from the roles used by company administrators. Hub roles govern access to hub-level operations like managing companies, configuring feature flags, and setting up fees. Company-level roles (which control what users can do inside a company's admin area) can also be viewed and managed from the hub.
+
+## User Types
+
+The hub works with two types of users, each managed from a separate tab on the **Users** page:
+
+| Type | Description |
+|------|-------------|
+| **Hub users** | Accounts that log in to the Partner Hub directly. They are linked to one or more resellers and manage companies, settings, and configuration from the hub. |
+| **Company users** | Accounts that belong to specific companies. They appear in the hub for visibility and can be managed from here, but their primary workspace is the company admin area. |
+
+The distinction matters because hub users and company users have different role systems, different permission scopes, and different management workflows.
+
+## Managing Hub Users
+
+### Viewing Users
+
+Navigate to the **Users** page in the hub. The default **Hub users** tab shows all hub user accounts with:
+
+- Name and email
+- Phone number
+- Assigned roles
+- Linked resellers (or **All resellers** for super users)
+- Last login time
+- Whether two-factor authentication is enabled
+
+Use the filters to narrow the list by name, email, role, reseller, two-factor status, or whether the user has been suspended.
+
+Switch to the **Company users** tab to see users who belong to companies rather than the hub. This tab shows the companies each user is associated with instead of resellers.
+
+### Creating a Hub User
+
+1. From the **Hub users** tab, click **+ Create hub user**.
+2. Fill in the user's **Name**, **Email**, and **Password**.
+3. Select one or more **Roles** to assign.
+4. Confirm the **Reseller** the user will be linked to.
+5. Click **Submit**.
+
+<Warning>
+Reseller access cannot be changed after creation. Make sure the correct reseller is selected before submitting.
+</Warning>
+
+The new user can immediately log in to the hub with the credentials you set. Their access is scoped to the reseller they were linked to — they will only see companies, settings, and data that belong to that reseller.
+
+### Editing a Hub User
+
+Open a user from the list to view their detail page. From here you can:
+
+- **Edit user details** — update the user's name, email, or send a password reset link.
+- **Edit roles and access** — change the user's assigned roles, or add and remove company associations.
+- **Suspend the user** — soft-delete the account so it can no longer log in. Suspended users can be restored later.
+- **Restore a suspended user** — reactivate a previously suspended account.
+- **Access as user** — impersonate the user to see exactly what they see.
+
+<Note>
+You cannot edit your own roles, permissions, or visibility groups. These restrictions prevent accidental self-lockout.
+</Note>
+
+### Assigning Companies
+
+Hub users can be associated with specific companies, giving them visibility into those companies' data and operations. On the user detail page, edit the **User roles and access** section to add or remove company associations.
+
+<Note>
+A user cannot be associated with more than 200 companies at any one time. When this limit is exceeded, the user is automatically removed from the least recently used companies. You can reassign a user to those companies if needed.
+</Note>
+
+### Impersonating a User
+
+The **Access** button on a user's detail page lets you impersonate that user — you'll see the hub exactly as they do, with their permissions and reseller access. This is useful for troubleshooting access issues or verifying that a role is configured correctly.
+
+While impersonating, use the exit option to return to your own account.
+
+<Note>
+You cannot impersonate yourself, and you cannot impersonate a user with greater permissions than your own.
+</Note>
+
+## Roles
+
+Roles define what a user can do in the hub or in a company's admin area. Each role is a named collection of permissions (called **abilities**) that can be assigned to users.
+
+The hub manages three categories of roles, accessible from the **Manage roles** tab:
+
+### Hub Roles
+
+Hub roles control what hub users can do within the Partner Hub itself — for example, whether they can view companies, edit feature flags, manage fees, or create other users.
+
+Abilities granted by hub roles are automatically scoped to the user's linked resellers. A hub user with permission to view companies will only see companies belonging to the resellers they have access to.
+
+<Note>
+Hub roles are available to hub users only. The abilities granted by these roles are limited according to the resellers available to the user.
+</Note>
+
+### Shared Company Roles
+
+Shared company roles are built-in roles available to all companies out of the box. These are system-defined roles (such as **Box Office User** or **Scanning User**) that provide standard permission sets for common company-level functions.
+
+Shared company roles cannot be edited from the hub — they are system roles — but they can be assigned to users within a company's admin area.
+
+### Global Reseller Roles
+
+Global reseller roles are custom roles created by resellers and made available to all of their companies. Unlike shared company roles, these are fully editable from the hub.
+
+This is useful when a reseller wants to enforce a consistent permission structure across all their companies. For example, a reseller might create a "Venue Manager" role with a specific set of abilities and make it available to every company they manage.
+
+Global reseller roles can only be created and edited within the hub, but may be assigned to users within a company's admin area.
+
+### Setting Default Roles
+
+Each reseller can designate a **default role** that is automatically assigned to new company users when they are added to a company under that reseller. This ensures new users start with an appropriate baseline set of permissions.
+
+To configure this, click **Set reseller default roles** from the roles page, select the reseller, and choose the default role from the available options.
+
+## Creating and Editing Roles
+
+When creating or editing a role, you configure two things:
+
+### Role Details
+
+- **Role title** — the display name shown when assigning the role to users.
+- **Reseller** — for global reseller roles, which reseller the role belongs to.
+
+### Role Permissions
+
+Permissions are organised into groups by entity type (e.g. users, companies, resellers, events). For each group, you choose a visibility level:
+
+| Visibility | Effect |
+|------------|--------|
+| **All [entity type]** | Full access to all items in the group |
+| **Selected [entity type]** | Access only to specifically chosen items |
+| **Created by them** | Access only to items the user themselves created |
+
+Within each group, individual abilities (view, create, edit, delete, and feature-specific actions) can be toggled on or off.
+
+## Super Users
+
+The **super user** role is a special role that bypasses all permission checks. A super user has unrestricted access to every reseller, every company, and every feature in the hub.
+
+Because of the scope of access it grants, assigning the super user role triggers a confirmation prompt:
+
+> *"You are about to give someone Super User privileges. Giving someone the super user role gives them access to all data in the system."*
+
+Super users appear in the user list with **All resellers** shown in the resellers column, reflecting their unrestricted access.
+
+<Warning>
+The super user role cannot be assigned during user creation. It can only be added by editing an existing user's roles.
+</Warning>
+
+## Two-Factor Authentication
+
+Hub users can enable two-factor authentication (2FA) for their account. When enabled, a **2FA enabled** badge appears next to the user in the user list, and the user must complete a second authentication step when logging in.
+
+Users configure their own 2FA settings from their account page — it cannot be enabled on their behalf by another user.
+
+## Related
+
+- [Feature Flags & Limitations](/topics/feature-flags) — configure which platform capabilities are available to companies
+- [SSO](/topics/sso) — single sign-on configuration for company customers
+- [Plans & Packages](/topics/plans-and-packages) — predefined bundles of features and fees
