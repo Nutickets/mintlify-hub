@@ -189,6 +189,23 @@ Parent companies display events from their child companies alongside their own. 
 | **Enabled** | Customers browse and purchase child company events directly from the parent's shop. No redirect occurs. |
 | **Disabled** | Customers viewing a child company's event on the parent shop are **redirected to the child company's shop** to complete the purchase, since the customer databases are separate. |
 
+#### Disabling a Child Company's Shop
+
+A child company's shop can be fully disabled so that **all URLs** on the child company's domain redirect to the parent company's shop. This is useful when all sales should be funnelled through the parent — the child company's events still appear on the parent's shop, but the child's own shop is no longer accessible.
+
+To enable this, two conditions must be met:
+
+1. **Global login** must be enabled on the child company (since customers will be shopping on the parent's site, they need shared accounts).
+2. The **Disable Ticket Shop** limitation must be activated on the child company via [feature flags](/topics/feature-flags).
+
+When both are in place, any request to the child company's shop domain returns a **302 redirect** to the parent company's shop. This applies to every page — not just the homepage.
+
+<Note>
+If a child company has **Disable Ticket Shop** activated but global login is **not** enabled, the shop remains accessible as normal. The redirect only takes effect when both conditions are met.
+</Note>
+
+**Signed URLs (payment links):** If a customer has an existing payment link issued against the child company's shop, the redirect automatically re-signs the URL for the parent company's domain. The payment link continues to work — the customer lands on the parent's shop with a valid signature and can complete their payment as expected.
+
 ### Box Office
 
 | Global Login | Box Office Behaviour |
