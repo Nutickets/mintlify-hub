@@ -111,6 +111,34 @@ Gateway configuration interacts with the [parent-child company](/topics/parent-c
 | **Global transactions enabled** | The child company uses the **parent company's** payment configuration. The child does not need its own gateway credentials |
 | **Global transactions disabled** | The child company manages its own gateways independently |
 
+## Automatic Fee Collection
+
+Reseller-managed gateways support **automatic fee collection** — the platform deducts [reseller fees](/topics/reseller-fees) at the point of payment rather than settling them separately after the fact. When a customer pays, the gateway splits the transaction so that the reseller's fee is collected automatically and the company receives the remainder.
+
+This works because the reseller holds the master gateway credentials and each company operates as a sub-account within the gateway. The exact mechanism differs by provider:
+
+| Gateway | Fee mechanism | Sub-account model |
+|---------|--------------|-------------------|
+| **Stripe** | Application fee on each PaymentIntent via Stripe Connect | Company connects as a Stripe Connected Account |
+| **Ryft** | Platform fee on each Payment Session | Company onboards as a Ryft Sub Account |
+| **PayPal** | Platform fee via PayPal Commerce Platform | Company authorises via PayPal OAuth |
+| **Curlec** | Transfer-based fee deduction | Company connects as a Razorpay Linked Account |
+| **Nuvei** | Platform fee collection | Company operates under reseller's merchant configuration |
+
+For all five gateways, the behaviour is the same from a reseller's perspective: fees configured in [reseller fees](/topics/reseller-fees) are collected automatically on every transaction. No manual settlement or reconciliation is required for the fee portion.
+
+### Refund Behaviour
+
+When a refund is processed, gateways handle the previously collected fee differently:
+
+- **Stripe** — by default, the application fee is reversed proportionally when a partial refund is issued, and fully reversed on a full refund.
+- **Ryft** — on a partial refund, the platform fee is **not** reversed (the reseller retains the fee). On a full refund, the platform fee is reversed automatically.
+- **PayPal, Curlec, Nuvei** — fee reversal behaviour follows each provider's default refund policy.
+
+### Company-Managed Gateways
+
+Gateways where the company provides its own credentials (e.g. Adyen, QuickPay, Worldpay) do **not** support automatic fee collection. For these gateways, the reseller's fee is tracked by the platform and settled separately through [company invoices](/topics/company-invoices).
+
 ## Webhook Configuration
 
 Some gateways support webhooks for receiving real-time payment status updates from the processor. For gateways that require webhooks:
