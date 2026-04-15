@@ -113,19 +113,25 @@ Gateway configuration interacts with the [parent-child company](/topics/parent-c
 
 ## Automatic Fee Collection
 
-Reseller-managed gateways support **automatic fee collection** — the platform deducts [reseller fees](/topics/reseller-fees) at the point of payment rather than settling them separately after the fact. When a customer pays, the gateway splits the transaction so that the reseller's fee is collected automatically and the company receives the remainder.
+Reseller-managed gateways handle [reseller fee](/topics/reseller-fees) collection automatically — fees do not need to be settled separately after the fact. How this works depends on the gateway:
 
-This works because the reseller holds the master gateway credentials and each company operates as a sub-account within the gateway. The exact mechanism differs by provider:
+### Fee-Splitting Gateways
+
+These gateways split each transaction at the point of payment, directing the reseller's fee to the reseller and the remainder to the company's sub-account:
 
 | Gateway | Fee mechanism | Sub-account model |
 |---------|--------------|-------------------|
 | **Stripe** | Application fee on each PaymentIntent via Stripe Connect | Company connects as a Stripe Connected Account |
 | **Ryft** | Platform fee on each Payment Session | Company onboards as a Ryft Sub Account |
 | **PayPal** | Platform fee via PayPal Commerce Platform | Company authorises via PayPal OAuth |
-| **Curlec** | Transfer-based fee deduction | Company connects as a Razorpay Linked Account |
-| **Nuvei** | Platform fee collection | Company operates under reseller's merchant configuration |
 
-For all five gateways, the behaviour is the same from a reseller's perspective: fees configured in [reseller fees](/topics/reseller-fees) are collected automatically on every transaction. No manual settlement or reconciliation is required for the fee portion.
+### Transfer-Based Gateways
+
+**Curlec** (Razorpay) charges the full amount to the reseller's account and then transfers the company's portion (total minus reseller fee) to the company's linked account. The reseller retains the fee by default. Transfers can also be disabled entirely, in which case all funds settle in the reseller's account for manual distribution.
+
+### Nuvei
+
+**Nuvei** uses the reseller's merchant credentials with a per-company merchant site ID. Unlike the gateways above, no reseller fee amount is passed to Nuvei at the point of payment — fee collection is handled outside of the transaction API. The platform treats reseller fees as collected automatically for Nuvei transactions.
 
 ### Refund Behaviour
 
@@ -133,7 +139,9 @@ When a refund is processed, gateways handle the previously collected fee differe
 
 - **Stripe** — by default, the application fee is reversed proportionally when a partial refund is issued, and fully reversed on a full refund.
 - **Ryft** — on a partial refund, the platform fee is **not** reversed (the reseller retains the fee). On a full refund, the platform fee is reversed automatically.
-- **PayPal, Curlec, Nuvei** — fee reversal behaviour follows each provider's default refund policy.
+- **PayPal** — fee reversal follows PayPal's default refund policy.
+- **Curlec** — the original transfer to the company is reversed (partially or fully) so the refund comes from the company's funds rather than the reseller's balance.
+- **Nuvei** — refunds are issued via the reseller's merchant credentials.
 
 ### Company-Managed Gateways
 
